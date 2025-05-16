@@ -80,5 +80,7 @@
   :ensure t
   :config
   (pdf-tools-install))
+  ;; wyłącz numerację linii w pdf-view-mode
+  (add-hook 'pdf-view-mode-hook (lambda () (display-line-numbers-mode -1)))
 
 (provide 'org-mode)
