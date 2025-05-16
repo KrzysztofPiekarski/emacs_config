@@ -76,4 +76,9 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))) 
 
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install))
+
 (provide 'org-mode)
