@@ -14,11 +14,6 @@
   :init (doom-modeline-mode 1))
 
 (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 120)
-
-;; Dodatkowo: powiększenie modeline (opcjonalnie)
-(custom-set-faces
- '(mode-line ((t (:family "FiraCode Nerd Font" :height 1.1 :weight normal))))
- '(mode-line-inactive ((t (:family "FiraCode Nerd Font" :height 1.2)))))
  
 ;; === DASHBOARD ===
 (use-package dashboard
@@ -38,5 +33,10 @@
 (add-hook 'dashboard-mode-hook
           (lambda ()
             (face-remap-add-relative 'default :height 1.2))) 
+
+;; Dodatkowo: powiększenie modeline (opcjonalnie)
+(custom-set-faces
+ '(mode-line ((t (:family "FiraCode Nerd Font" :height 1.1 :weight normal))))
+ '(mode-line-inactive ((t (:family "FiraCode Nerd Font" :height 1.2)))))
 
 (provide 'ui)
