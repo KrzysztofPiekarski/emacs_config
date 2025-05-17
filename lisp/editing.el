@@ -14,7 +14,10 @@
   :config
   (setq lsp-headerline-breadcrumb-enable t)
   (setq lsp-enable-symbol-highlighting t)
-  (setq lsp-enable-on-type-formatting nil))
+  (setq lsp-enable-on-type-formatting nil)) 
+  
+  (with-eval-after-load 'lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(ein:ipynb-mode . "python")))
 
 ;; === LSP UI: dokumentacja, tooltippy, boczne podpowiedzi ===
 (use-package lsp-ui
