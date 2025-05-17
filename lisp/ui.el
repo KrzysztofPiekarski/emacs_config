@@ -1,12 +1,25 @@
 ;; === WIZUALNE ULEPSZENIA ===
-(use-package doom-themes
+;(use-package doom-themes
+;  :config
+;  (load-theme 'doom-nord t))
+
+; ===CATPPUCCIN THEME ===
+(use-package catppuccin-theme
+  :ensure t
   :config
-  (load-theme 'doom-nord t))
+  (setq catppuccin-flavor 'mocha) ;; Możliwe: 'latte, 'frappe, 'macchiato, 'mocha
+  (load-theme 'catppuccin :no-confirm)) 
+  
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
 
 (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 120)
 
+;; Dodatkowo: powiększenie modeline (opcjonalnie)
+(custom-set-faces
+ '(mode-line ((t (:family "FiraCode Nerd Font" :height 1.1 :weight normal))))
+ '(mode-line-inactive ((t (:family "FiraCode Nerd Font" :height 1.2)))))
+ 
 ;; === DASHBOARD ===
 (use-package dashboard
   :config
@@ -21,9 +34,9 @@
   (setq dashboard-set-init-info t)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t))
-
+ 
 (add-hook 'dashboard-mode-hook
           (lambda ()
-            (face-remap-add-relative 'default :height 0.9))) 
+            (face-remap-add-relative 'default :height 1.2))) 
 
 (provide 'ui)
