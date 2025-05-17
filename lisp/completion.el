@@ -31,35 +31,35 @@
   :init
   (global-corfu-mode)
   :custom
-  (corfu-auto t)                 ;; automatyczne uzupełnianie
-  (corfu-cycle t)               ;; pozwala przechodzić w kółko po opcjach
-  (corfu-quit-no-match t)       ;; zamyka menu gdy nie ma dopasowania
-  (corfu-preview-current t)     ;; podgląd pierwszego dopasowania
-  (corfu-on-exact-match nil)    ;; nie zamyka listy po dokładnym dopasowaniu
-  (corfu-scroll-margin 5)       ;; margines przewijania
+  (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-cycle t)
   :bind
   (:map corfu-map
-        ("TAB" . corfu-next)
-        ("S-TAB" . corfu-previous)))
-
-;; Opcjonalnie tryb popup w minibufferze (Emacs 29+)
-(when (>= emacs-major-version 29)
-  (setq completion-in-region-function #'consult-completion-in-region))
+        ("<tab>" . corfu-next)
+        ("S-<tab>" . corfu-previous)
+        ("RET" . corfu-insert)))
 
 ;; === Cape — Completion At Point Extensions ===
 (use-package cape
   :init
-  ;; Dodajemy rozszerzenia do `completion-at-point-functions`
-  (setq cape-dabbrev-min-length 3) ;; Zwiększenie minimalnej długości dla dabbrev
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)     ;; dynamiczne słowa z bufora
-  (add-to-list 'completion-at-point-functions #'cape-file)        ;; ścieżki plików
-  (add-to-list 'completion-at-point-functions #'cape-symbol)      ;; symbole (np. lispowe)
-  (add-to-list 'completion-at-point-functions #'cape-keyword)     ;; słowa kluczowe języka
-  ;; Jeśli piszesz w Emacs Lisp:
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (add-to-list 'completion-at-point-functions #'cape-elisp-block)
-              (add-to-list 'completion-at-point-functions #'cape-elisp-symbol))))
+  (defun my/setup-cape ()
+    (setq-local completion-at-point-functions
+                (list
+                 #'cape-dabbrev
+                 #'cape-file
+                 #'cape-keyword
+                 #'cape-symbol
+                 #'cape-elisp-block
+                 #'lsp-completion-at-point))) ;; LSP jako jedno ze źródeł
+  (add-hook 'prog-mode-hook #'my/setup-cape))
+
+;; Orderless dla fuzzy matching
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 ;; === MAGIT ===
 (use-package magit
