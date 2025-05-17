@@ -68,6 +68,8 @@
 (require 'org-mode)
 (require 'keybindings)
 (require 'utils)
+(require 'translator)
+(require 'lisp-dev)
 
 ;; Ustawienia custom.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

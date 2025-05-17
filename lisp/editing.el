@@ -78,11 +78,6 @@
 ;; === JUPYTER (EIN) ===
 (use-package ein :defer t)
 
-(use-package ob-jupyter
-  :after (jupyter org)
-  :config
-  (add-to-list 'org-babel-load-languages '(jupyter . t)))
-
 ;; === dap-mode – debugowanie z LSP (Python) ===
 (use-package dap-mode
   :after lsp-mode

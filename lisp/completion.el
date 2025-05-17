@@ -94,17 +94,6 @@
   (unless (file-exists-p "~/.emacs.d/undo")
     (make-directory "~/.emacs.d/undo"))) 
 
-;; === Hook do Emacs Lisp ===
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (eldoc-mode 1)
-            (setq-local completion-at-point-functions
-                        (list #'cape-elisp-block
-                              #'cape-elisp-symbol
-                              #'cape-dabbrev
-                              #'cape-keyword
-                              #'cape-file))))
-
 ;; === Eglot (LSP) dla języków programowania ===
 (use-package eglot
   :hook ((python-mode . eglot-ensure)

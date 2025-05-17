@@ -48,4 +48,9 @@
 (setq auto-save-default nil)
 (delete-selection-mode 1)
 
+;; === SKRÓTY: Translator ===
+(global-set-key (kbd "C-c t r") 'translator/translate-region)            ;; PL → EN
+(global-set-key (kbd "C-c t p") 'translator/translate-region-en-to-pl)   ;; EN → PL
+(global-set-key (kbd "C-c t b") 'translator/translate-buffer-to-english) ;; Bufor PL → EN
+
 (provide 'keybindings)
