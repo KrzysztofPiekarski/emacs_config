@@ -23,12 +23,12 @@
   (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-show-with-cursor t)
   (setq lsp-ui-doc-delay 0.2)
+  (setq lsp-ui-doc-position 'at-point)
+  (setq lsp-ui-doc-max-height 30)
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-hover t)
   (setq lsp-ui-sideline-show-code-actions t))
-  (setq lsp-ui-doc-position 'at-point)
-  (setq lsp-ui-doc-max-height 30)
-
+  
 ;; === LSP Pyright: serwer języka Python ===
 (use-package lsp-pyright
   :ensure t
@@ -38,15 +38,31 @@
 
 ;; === Flycheck – lintowanie ===
 (use-package flycheck
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)) 
+
+;; === DAP – debugowanie z LSP (Python) ===
+(use-package dap-mode
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode)
+  (require 'dap-python)
+  (setq dap-python-debugger 'debugpy)
+  (setq dap-python-executable
+        (or (when (getenv "CONDA_PREFIX")
+              (concat (getenv "CONDA_PREFIX") "/bin/python"))
+            "python3")))
 
 ;; === Wsparcie dla języków ===
-(use-package go-mode :hook (before-save . gofmt-before-save))
+(use-package go-mode
+  :hook (before-save . gofmt-before-save)) ; LSP dla Go jest domyślnie przez lsp-mode
+
 (use-package web-mode :mode "\\.html?\\'")
 (use-package yaml-mode :mode "\\.ya?ml\\'")
 (use-package bash-completion)
 (use-package haskell-mode)
 (use-package clojure-mode)
+
+;; === Ustawienia Python ===
 (add-hook 'python-mode-hook #'font-lock-mode)
 (add-hook 'python-mode-hook #'display-line-numbers-mode)
 
@@ -74,7 +90,7 @@
 
 (use-package yasnippet-snippets)
 
-;; === POETRY, CONDA, MAMBA ===
+;; === Conda: automatyczne aktywowanie środowisk ===
 (use-package conda
   :init
   (setq conda-anaconda-home (expand-file-name "~/miniconda3"))
@@ -82,21 +98,11 @@
   :config
   (conda-env-initialize-interactive-shells)
   (conda-env-initialize-eshell)
-  (conda-env-autoactivate-mode t)) ; automatycznie aktywuje środowisko Conda przy otwarciu folderu projektu
-
+  (conda-env-autoactivate-mode t))
+  
 ;; === JUPYTER (EIN) ===
 (use-package ein
-  :defer t)
-
-;; === dap-mode – debugowanie z LSP (Python) ===
-(use-package dap-mode
-  :after lsp-mode
-  :config
-  (dap-auto-configure-mode)
-  (require 'dap-python)
-  (setq dap-python-debugger 'debugpy)
-  ;(setq dap-python-executable "python3"))
-  (setq dap-python-executable (concat (getenv "CONDA_PREFIX") "/bin/python")))
+  :ensure t)
 
 (provide 'editing)
 

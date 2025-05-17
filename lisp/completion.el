@@ -97,6 +97,7 @@
 ;; === Eglot (LSP) dla języków programowania ===
 (use-package eglot
   :hook ((python-mode . eglot-ensure)
+		 (go-mode . eglot-ensure)
          (rust-mode . eglot-ensure)
          (js-mode . eglot-ensure)
          (c-mode . eglot-ensure)
