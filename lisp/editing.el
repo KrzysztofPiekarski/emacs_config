@@ -15,8 +15,7 @@
   (setq lsp-headerline-breadcrumb-enable t)
   (setq lsp-enable-symbol-highlighting t)
   (setq lsp-enable-on-type-formatting nil)) 
-  
-  (with-eval-after-load 'lsp-mode
+(with-eval-after-load 'lsp-mode
   (add-to-list 'lsp-language-id-configuration '(ein:ipynb-mode . "python")))
 
 ;; === LSP UI: dokumentacja, tooltippy, boczne podpowiedzi ===
@@ -29,6 +28,8 @@
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-hover t)
   (setq lsp-ui-sideline-show-code-actions t))
+  (setq lsp-ui-doc-position 'at-point)
+  (setq lsp-ui-doc-max-height 30)
 
 ;; === LSP Pyright: serwer języka Python ===
 (use-package lsp-pyright
@@ -53,7 +54,14 @@
 
 ;; === Markdown ===
 (use-package markdown-mode
-  :mode "\\.md\\'")
+  :mode "\\.md\\'"
+  :config
+  ;; Włącz podświetlanie bloków kodu
+  (setq markdown-fontify-code-blocks-natively t)
+  ;; Dodaj rozpoznawanie języków w blokach kodu
+  (add-to-list 'markdown-code-lang-modes '("python" . python-mode))
+  (add-to-list 'markdown-code-lang-modes '("bash" . sh-mode))
+  (add-to-list 'markdown-code-lang-modes '("json" . json-mode)))
 
 (use-package markdown-preview-mode
   :after markdown-mode)
@@ -79,7 +87,11 @@
   (conda-env-autoactivate-mode t)) ; automatycznie aktywuje środowisko Conda przy otwarciu folderu projektu
 
 ;; === JUPYTER (EIN) ===
-(use-package ein :defer t)
+(use-package ein
+  :defer t
+  :config
+  ;; Uruchamiaj LSP w trybie notebooka
+  (add-hook 'ein:notebook-mode-hook #'lsp-deferred))
 
 ;; === dap-mode – debugowanie z LSP (Python) ===
 (use-package dap-mode
@@ -88,7 +100,8 @@
   (dap-auto-configure-mode)
   (require 'dap-python)
   (setq dap-python-debugger 'debugpy)
-  (setq dap-python-executable "python3"))
+  ;(setq dap-python-executable "python3"))
+  (setq dap-python-executable (concat (getenv "CONDA_PREFIX") "/bin/python")))
 
 (provide 'editing)
 

@@ -75,3 +75,7 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+;; === Go Language PATH ===
+(setenv "PATH" (concat (getenv "PATH") ":/home/krispi/go/bin"))
+(setq exec-path (append exec-path '("/home/krispi/go/bin")))
