@@ -15,8 +15,6 @@
   (setq lsp-headerline-breadcrumb-enable t)
   (setq lsp-enable-symbol-highlighting t)
   (setq lsp-enable-on-type-formatting nil)) 
-(with-eval-after-load 'lsp-mode
-  (add-to-list 'lsp-language-id-configuration '(ein:ipynb-mode . "python")))
 
 ;; === LSP UI: dokumentacja, tooltippy, boczne podpowiedzi ===
 (use-package lsp-ui
@@ -88,10 +86,7 @@
 
 ;; === JUPYTER (EIN) ===
 (use-package ein
-  :defer t
-  :config
-  ;; Uruchamiaj LSP w trybie notebooka
-  (add-hook 'ein:notebook-mode-hook #'lsp-deferred))
+  :defer t)
 
 ;; === dap-mode – debugowanie z LSP (Python) ===
 (use-package dap-mode
