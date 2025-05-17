@@ -15,8 +15,11 @@
   (setq jupyter-eval-use-overlays t))
 
 ;; === Polymode (dla obsługi wielu języków w jednym buforze) ===
-(use-package poly
-  :ensure t)
+(use-package polymode
+  :ensure t
+  (setq load-path
+      (append '("path/to/vc/dir/polymode/"  "path/to/vc/dir/poly-markdown/")
+              load-path)))
 
 (use-package poly-markdown
   :ensure t)
