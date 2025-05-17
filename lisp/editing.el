@@ -99,10 +99,6 @@
   (conda-env-initialize-interactive-shells)
   (conda-env-initialize-eshell)
   (conda-env-autoactivate-mode t))
-  
-;; === JUPYTER (EIN) ===
-(use-package ein
-  :ensure t)
 
 (provide 'editing)
 

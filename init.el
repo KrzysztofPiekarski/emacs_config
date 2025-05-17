@@ -70,6 +70,7 @@
 (require 'utils)
 (require 'translator)
 (require 'lisp-dev)
+(require 'jupyter-config)
 
 ;; Ustawienia custom.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

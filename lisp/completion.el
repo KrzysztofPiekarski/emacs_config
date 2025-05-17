@@ -54,13 +54,6 @@
                  #'lsp-completion-at-point))) ;; LSP jako jedno ze źródeł
   (add-hook 'prog-mode-hook #'my/setup-cape))
 
-;; Orderless dla fuzzy matching
-(use-package orderless
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
-
 ;; === MAGIT ===
 (use-package magit
   :bind ("C-x g" . magit-status))
