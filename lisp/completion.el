@@ -54,6 +54,10 @@
                  #'lsp-completion-at-point))) ;; LSP jako jedno ze źródeł
   (add-hook 'prog-mode-hook #'my/setup-cape))
 
+;; === TRANSIENT ===
+(use-package transient
+  :ensure t)
+  
 ;; === MAGIT ===
 (use-package magit
   :bind ("C-x g" . magit-status))
