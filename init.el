@@ -78,5 +78,6 @@
   (load custom-file))
 
 ;; === Go Language PATH ===
+;; Add to .bashrc export PATH=$PATH:/home/users/go/bin
 (setenv "PATH" (concat (getenv "PATH") ":/home/krispi/go/bin"))
 (setq exec-path (append exec-path '("/home/krispi/go/bin")))
