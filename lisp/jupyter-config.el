@@ -13,13 +13,16 @@
   :config
   ;; Wyświetlaj wyniki jako overlaye
   (setq jupyter-eval-use-overlays t))
-
+              
 ;; === Polymode (dla obsługi wielu języków w jednym buforze) ===
 (use-package polymode
-  :ensure t
-  (setq load-path
-      (append '("path/to/vc/dir/polymode/"  "path/to/vc/dir/poly-markdown/")
-              load-path)))
+  :ensure t)
+  
+;; === POLYMODE PATH ===
+(setq load-path
+      (append '("path/to/vc/dir/polymode/"
+                "path/to/vc/dir/poly-markdown/")
+              load-path))
 
 (use-package poly-markdown
   :ensure t)
