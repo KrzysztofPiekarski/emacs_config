@@ -10,10 +10,13 @@
 ;;; Code:
 
 ;; === Load API key from .env ===
-(use-package dotenv
+(use-package dotenv-mode
+  :ensure t)
+
+(use-package load-env-vars
   :ensure t
   :config
-  (dotenv-load "~/.emacs.d/.env"))
+  (load-env-vars "~/.emacs.d/.env"))
 
 ;; OPTIONAL: Load from ~/.authinfo.gpg if needed
 (defun my/get-openai-key-from-authinfo ()
@@ -36,8 +39,6 @@
   :custom
   (gptel-api-key (getenv "OPENAI_API_KEY"))
   (gptel-model "gpt-4")
-  :bind (("C-c a s" . gptel-summarize-region)
-         ("C-c a f" . gptel-fix-code))
   :config
   (defun gptel-summarize-region ()
     "Podsumuj zaznaczony tekst za pomocą GPT."
@@ -47,14 +48,17 @@
   (defun gptel-fix-code ()
     "Popraw błędy w zaznaczonym kodzie."
     (interactive)
-    (gptel-send nil "Znajdź i popraw błędy w tym kodzie:" (region-beginning) (region-end))))
+    (gptel-send nil "Znajdź i popraw błędy w tym kodzie:" (region-beginning) (region-end)))
+
+  :bind (("C-c a s" . gptel-summarize-region)
+         ("C-c a f" . gptel-fix-code)))
 
 ;; === ChatGPT-Shell ===
 (use-package chatgpt-shell
   :ensure t
   :commands (chatgpt-shell)
   :custom
-  (chatgpt-shell-openai-key (getenv "OPENAI_API_KEY")))
+  (chatgpt-shell-openai-key (getenv "OPENAI_API_KEY"))
   :bind (("C-c C-g" . chatgpt-shell)))
 
 ;; === Org-AI ===
@@ -65,11 +69,11 @@
   (org-ai-openai-api-key (getenv "OPENAI_API_KEY"))
   (org-ai-default-chat-model "gpt-4")
   :config
-  (org-ai-install-yasnippets)) ;; optional autocompletion
+  (org-ai-install-yasnippets)
   :bind (:map org-mode-map
               ("C-c a c" . org-ai-complete)
               ("C-c a r" . org-ai-rewrite)
               ("C-c a x" . org-ai-explainer)))
 
-(provide 'emacsAI)
+(provide 'ai)
 ;;; emacsAI.el ends here

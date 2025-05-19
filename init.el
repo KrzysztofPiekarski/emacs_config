@@ -60,6 +60,7 @@
 
 ;; Dodaj katalog z plikami konfiguracyjnymi
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;; Wczytaj konfiguracje z osobnych plików
 (require 'ui)
@@ -71,6 +72,7 @@
 (require 'translator)
 (require 'lisp-dev)
 (require 'jupyter-config)
+(require 'ai)
 
 ;; Ustawienia custom.el
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
